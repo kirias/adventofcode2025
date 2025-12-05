@@ -16,9 +16,8 @@ with open('inputs/05.txt', 'r') as file:
             ranges.append((int(range[0]), int(range[1])))
         else:
             id = int(line)
-            for (frm, to) in ranges:
-                if id >= frm and id <= to:
-                    fresh = True
+            for start, end in ranges:
+                if id >= start and id <= end:
                     fresh_count += 1
                     break
 

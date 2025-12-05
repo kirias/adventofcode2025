@@ -1,6 +1,3 @@
-from pyrsistent import inc
-
-
 ranges = []
 
 ranges_input = True
@@ -33,35 +30,29 @@ with open('inputs/05.txt', 'r') as file:
 
     points = list(points)
     points.sort()
-
-    def end_ranges(p):
-        ends_count = 0
-        for _, endr in ranges:
-            if endr == p:
-                ends_count += 1
-        return ends_count
     
-    def start_ranges(p):
+    def start_end_ranges(p):
         starts_count = 0
-        for strtrange,_ in ranges:
-            if strtrange == p:
+        for start, end in ranges:
+            if start == p:
                 starts_count += 1
+            if end == p:
+                starts_count -= 1
         return starts_count
 
-    included = start_ranges(points[0])
+    included = start_end_ranges(points[0])
     prev_point = points[0]
-    for p in points[1:]:
+    for point in points[1:]:
 
         if included > 0:
-            total_ids += p - prev_point
-
-        included -= end_ranges(p)
-        included += start_ranges(p)
+            total_ids += point - prev_point
+        
+        included += start_end_ranges(point)
 
         if included == 0:
             total_ids += 1
         
-        prev_point = p
+        prev_point = point
 
 
 print(f"Part 1: {fresh_count}")

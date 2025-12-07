@@ -5,14 +5,9 @@ with open('inputs/07.txt', 'r') as file:
         line = line.rstrip()
         lines.append(line)
 
-beams = []
-start = 0
+start = lines[0].find('S')
+beams = [start]
 len_line = len(lines[0])
-for i in range(len_line):
-    if lines[0][i] == 'S':
-        beams.append(i)
-        start = i
-        break
 
 splits = 0
 
